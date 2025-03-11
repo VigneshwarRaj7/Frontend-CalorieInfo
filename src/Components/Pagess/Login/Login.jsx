@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import axios from 'axios'  // Uncomment for real API calls
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
-import logo from '../../../assets/konviLogo.png';
+import logo from '../../../assets/konviLogo1.png';
 import weighingLogo from '../../../assets/weighingLogo.png'
+import banner from '../../../assets/banner.png'
 
 function Login() {
   const [isLoginMode, setIsLoginMode] = useState(true)
@@ -68,20 +69,27 @@ function Login() {
 
   return (
     
-    <div className="relative min-h-screen bg-gray-800">
-     
+    <div className="relative min-h-screen bg-gray-700">
+      
+      <div
+            className="absolute h-screen w-full bg-auto bg-repeat"
+            style={{ backgroundImage: `url(${banner})`,
+            backgroundSize: '650px auto', 
+            }}
+          >
+      </div>
       <div className="absolute inset-0 bg-[#] bg-opacity-60"></div>
 
      
-      <div className="relative px-4 sm:px-8 py-6 flex items-center justify-between">
-        <img src={logo} className='m-4 w-40  md:w-56 md:mx-20 md:- '></img>
-        <img src={weighingLogo} className='w-16 mx-4 -mt-2  md:w-[100px] md:mx-20 md:mt-2'></img>
+      <div className="relative px-4 sm:px-8 py-6 flex items-center  justify-between">
+        <img src={logo} className='m-4 w-40  rounded-lg shadow-2xl p-2 md:w-56 md:mx-20'></img>
+        <img src={weighingLogo} className='w-16 mx-4 -mt-2  md:w-[100px] shadow-2xl md:mx-20 md:mt-2'></img>
       </div>
 
      
      
-      <div className="relative flex justify-center  items-center px-4 py-8 sm:py-20">
-        <div className="max-w-md w-full bg-[#0A1B2A] bg-opacity-75 text-white p-8 sm:p-10 rounded-3xl">
+      <div className="relative shadow-2xl flex justify-center  items-center px-4 py-8 sm:py-20">
+        <div className="max-w-md w-full bg-[#0A1B2A]  bg-opaci text-white p-8 sm:p-10 rounded-3xl">
           <h2 className="text-2xl sm:text-3xl font-bold mb-6">
             {isLoginMode ? 'Sign In' : 'Create Account'}
           </h2>

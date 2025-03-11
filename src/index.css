@@ -1,8 +1,9 @@
+/* Twailwind CSS is imprted and the #btn CSS for the icons on layout as box shadow is not possible in Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 body {
-    @apply bg-gray-800;
+    @apply bg-gray-700;
   }
 #btn{
                

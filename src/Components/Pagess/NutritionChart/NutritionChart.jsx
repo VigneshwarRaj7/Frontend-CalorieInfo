@@ -14,7 +14,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const NutritionChart = (props) => {
   const nutritionData = props.data
-  console.log(props)
+  
   const { calories, protein, carbs, fat, fiber, vitamins } = nutritionData;
 
   // Convert vitamins list into label-value pairs
@@ -96,22 +96,7 @@ const NutritionChart = (props) => {
         <Bar data={vitaminsData} options={chartOptions} />
       </div>
 
-      {/* Insights */}
-      <h3 className="text-center text-xl font-medium mt-8 mb-4">Insights:</h3>
-      <ul className="list-none p-0 text-center">
-        {insights.length > 0 ? (
-          insights.map((insight, index) => (
-            <li
-              key={index}
-              className="text-lg mb-2 bg-gray-700 text-yellow-400 px-4 py-2 rounded-md inline-block"
-            >
-              {insight}
-            </li>
-          ))
-        ) : (
-          <li className="text-lg italic text-gray-400">No special insights.</li>
-        )}
-      </ul>
+      
     </div>
   );
 };

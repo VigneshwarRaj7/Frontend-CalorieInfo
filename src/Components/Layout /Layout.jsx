@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
 
-import KonviLogo from '../../assets/konviLogo.png';
+import KonviLogo from '../../assets/konviLogo1.png';
 
 function Layout() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -19,20 +19,20 @@ function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[80px] md:h-24">
             
-            {/* Left: App Title */}
-            <div className="flex-shrink-0">
+          
+            <div className="f-0">
               <Link to="/" className="font-bold text-xl ">
-                <img src={KonviLogo} className='w-28 md:w-40 '></img>
+                <img src={KonviLogo} className='m-4 w-40  rounded-lg shadow-2xl p-2 md:w-56 md:mx-20  '></img>
               </Link>
             </div>
 
-            {/* Hamburger Button (Mobile) */}
+        
             <div className="flex md:hidden">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="text-white hover:text-gray-200 focus:outline-none"
               >
-                {/* Simple hamburger icon */}
+        
                 <svg
                   className="h-10 w-10"
                   fill="none"
@@ -50,13 +50,13 @@ function Layout() {
               </button>
             </div>
 
-            {/* Desktop Menu */}
+         
             <div className="hidden md:flex space-x-8 text-white text-base  md:text-lg font-semibold">
               <Link to="/" className="hover:bg-red-300 bg-[#0A1B2A] border-red-300" id='btn'>
                 Home
               </Link>
               <Link to="/calorie-tracker" className="hover:bg-red-300  border-red-300 bg-[#0A1B2A]" id='btn'>
-                Calorie Tracker
+                Calorie Guide
               </Link>
               <button
                 onClick={handleLogout}
@@ -68,7 +68,6 @@ function Layout() {
           </div>
         </div>
 
-        {/* Mobile dropdown menu */}
         {menuOpen && (
           <div className="md:hidden text-center">
             <Link
@@ -98,7 +97,6 @@ function Layout() {
         )}
       </nav>
 
-      {/* Outlet: Renders child routes (Home, CalorieTracker) */}
       <div className="flex-grow">
         <Outlet />
       </div>

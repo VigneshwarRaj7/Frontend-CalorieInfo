@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import NutritionChart from '../NutritionChart/NutritionChart'
-import { Link } from 'react-router-dom'
+import Insights from '../../MiniComponents/Insights'
 
 function CalorieTracker() {
   const [foodInput, setFoodInput] = useState('')
@@ -16,33 +16,27 @@ function CalorieTracker() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
-    setNutritionData(null)
+    // setNutritionData(null)
     setLoading(true)
     
     try {
      
-      setCustomData(null)
       const response = await axios.post('http://127.0.0.1:5000/get_nutrition', {
         food: foodInput,
-        weight: parseInt(weight),
+        weight: parseInt(weight,10),
       })
-     
-      if(custom){
-        try{
-          
-          const response2 = await axios.post('http://127.0.0.1:5000/get_custom', {
-            food: foodInput,
-            weight: parseInt(weight),
-            custom: custom
-          })
-           
-           setCustomData(response2.data)
-           
-        }
-        catch(err){
-          setError(err.response.data.error || 'Could not fetch nutrition data.')
-        }
-      }
+      
+     if(custom){
+      const response2 = await axios.post('http://127.0.0.1:5000/get_custom', {
+        food: foodInput,
+        weight: parseInt(weight),
+        custom: custom
+      })
+       
+       setCustomData(response2.data)
+     }else{
+      setCustomData(null)
+     }
 
 
       setNutritionData(response.data)
@@ -50,6 +44,7 @@ function CalorieTracker() {
       if (err.response) {
         setError(err.response.data.error || 'Could not fetch nutrition data.')
       } else {
+        
         setError('Network or server error.')
       }
     } finally {
@@ -58,13 +53,13 @@ function CalorieTracker() {
   }
 
   return (
-      <div className=''> 
-      <div    className={`${nutritionData ? "relative z-10 flex flex-col items-center mt-3 mx-5 md:mx-12 " :" relative z-10 flex flex-col items-center  mt-12 mx-5 md:mx-[450px]"}`}>
+      
+      <div    className={`${nutritionData ? " shadow-2xl relative z-10 mt-6  flex flex-col items-center mx-5 md:mx-12 " :" shadow-2xl relative z-10 flex flex-col items-center  mt-12 mx-5 md:mx-[450px]"}`}>
        
-       {`${nutritionData ? "" :""}`}
+      
         <form  
           onSubmit={handleSubmit}
-          className={`${nutritionData ? "w-full shadow-2xl bg-[#0A1B2A] bg-opacity-75 text-white p-5 rounded-3xl shadow space-y-4 -mt-4" :"w-full shadow-2xl bg-[#0A1B2A] bg-opacity-75 text-white p-10 rounded-3xl shadow space-y-4"}`}
+          className={`${nutritionData ? "w-full shadow-2xl bg-[#0A1B2A] bg-opacity-75 text-white p-5 rounded-3xl space-y-4 -mt-4" :"w-full shadow-2xl bg-[#0A1B2A] bg-opacity-75 text-white p-10 rounded-3xl space-y-4"}`}
         >
        {(!nutritionData) && <h1 className="text-3xl sm:text-4xl text-center font-bold text-white mb-6">
           Calorie Tracker
@@ -112,8 +107,9 @@ function CalorieTracker() {
             placeholder="other queries like, is this healthy or not?"
             value={custom}
             onChange={(e) => 
-              setCustom(e.target.value)}
+            {  setCustom(e.target.value)
             
+          }} 
           />
           </div>
         </div >
@@ -127,8 +123,8 @@ function CalorieTracker() {
           </button>
         </form>
 
-        {/* Display error or results */}
-        <div className="w-full max-w-md mt-2 ">
+        
+        <div className="w-full  mt-2 "> 
           {error && (
             <div className="p-4 bg-red-100 bg-opacity-10 text-red-500 rounded">
               {error}
@@ -136,65 +132,87 @@ function CalorieTracker() {
           )}
 
           {nutritionData && (
-            <div className="p-4 md:flex md:flex-row bg-black bg-opacity-75 text-white rounded shadow mt-4">
-              <div> <h2 className="text-xl font-bold mb-2 text-red-600">
-                Nutrition Info
-              </h2>
-              <ul className="list-disc list-inside text-gray-200 space-y-1">
-           
-                {nutritionData.calories && (
-                  <li>
-                    <strong>Calories:</strong> {nutritionData.calories}
-                  </li>
-                )}
-                {nutritionData.protein && (
-                  <li>
-                    <strong>Protein:</strong> {nutritionData.protein} g
-                  </li>
-                )}
-                {nutritionData.carbs && (
-                  <li>
-                    <strong>Carbs:</strong> {nutritionData.carbs} g
-                  </li>
-                )}
-                {nutritionData.fat && (
-                  <li>
-                    <strong>Fat:</strong> {nutritionData.fat} g
-                  </li>
-                )}
-                {
-                    nutritionData.vitamins && (nutritionData.vitamins.map((vitamin,index)=>(
-                      <li key={index}>
-                          {vitamin.name}:{vitamin.value}
-                      </li>)
-                    ))
-                }
-               { customData && (
-                  <div className="mt-4">
-                    <h2 className="text-xl font-bold mb-2 text-red-600">Custom Info</h2>
-                    <ul className="list-disc list-inside text-gray-200 space-y-1">
-                      {Object.entries(customData).map(([key, value]) => (
-                        <li key={key}>
-                          <strong>{key}:</strong> {value.toString()}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </ul>
+            <div className=''>
+              <h2 className="text-3xl mt-2 font-bold text-center text-white">Nutrition Info</h2>   
+              <div className=" py-4 md:flex md:flex-col-2  bg-[#0A1B2A] bg-opacity-75   text-white rounded-3xl shadow-3xl mt-4">
+                
+          
+                        <div className="p-4 md:w-1/2 md:flex md:flex-col  text-white mt-4 ">
+                        
+                        <div className='md:flex md:flex-row '>
+                          <div className='ml-20 md:ml-32 w-1/2 '>
+                          
+                              <ul className=" space-y-2 pl-4 text-gray-200 ">
+                                {nutritionData.calories ? (
+                                  <li>
+                                    <strong>Calories:</strong> {nutritionData.calories} 
+                                  </li>
+                                ): " "}
+                                {nutritionData.protein ? (
+                                  <li>
+                                    <strong>Protein:</strong> {nutritionData.protein} g
+                                  </li>
+                                ):""}
+                                {nutritionData.carbs ? (
+                                  <li>
+                                    <strong>Carbs:</strong> {nutritionData.carbs} g
+                                  </li>
+                                ): ""}
+                                {nutritionData.fat ? (
+                                  <li>
+                                    <strong>Fat:</strong> {nutritionData.fat} g
+                                  </li>
+                                ):""}
+                                {nutritionData.fiber ? (
+                                  <li>
+                                    <strong>Fiber:</strong> {nutritionData.fiber} g
+                                  </li>
+                                ):""}
+
+                                {nutritionData.vitamins &&
+                                  nutritionData.vitamins.map((vitamin, index) => (
+                                    <li key={index}><strong> 
+                                      {vitamin.name}: {vitamin.value}
+                                      </strong>
+                                    </li>
+                                  ))}
+                              </ul>
+                              </div>
+
+                              {customData && (
+                                <div className="mb-6 mt-4 md:mt-0 md:w-1/2">
+                                <ul className=''>
+                                    {Object.entries(customData).map(([key, value]) => ( 
+                                      <li key={key}>
+                                        <strong>{key}:</strong> {value.toString()}
+                                      </li>
+                                    ))}
+                                </ul>
+                                </div>
+                              )}
+                        </div>
+
+                        <div className=' mx-auto ml-auto mr-auto md:mt-24'><Insights data={nutritionData}/></div>
+                      
+
+                        
+                        </div>
+
+        
+                        <div className='md:w-1/2'>{
+                            <NutritionChart data={nutritionData}/>
+                          }
+                        </div>
+                
+                
+                
+                
               </div>
-              <div>{
-                  <NutritionChart data={nutritionData}/>
-                }</div>
-              
-              
-              
-              
             </div>
           )}
         </div>
       </div>
-      </div>
+      
 
   )
 }

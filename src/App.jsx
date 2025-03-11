@@ -1,22 +1,22 @@
+// This file contains all the routes.
+// Routing has been done in a way to provide Single Page Application
+// All the child routes are enclosed in Layout in ProtectedRoute ensuring security.
+
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './Components/Pagess/Login/Login'
 import Home from './Components/Pagess/Home/Home'
-import CalorieTracker from './Components/Pagess/Calories/CalorieTracker'
+import CalorieGuide from './Components/Pagess/Calories/CalorieTracker'
 import ProtectedRoute from './Components/Utils/ProtectedRoute'
 import Layout from './Components/Layout /Layout'
 import NutritionChart from './Components/Pagess/NutritionChart/NutritionChart'
+import Insights from './Components/MiniComponents/Insights'
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Public route */}
-        
+      <Routes>  
         <Route path="/login" element={<Login />} />
-         
-         
-        {/* Protected routes use Layout (with NavBar) */}
         <Route
           path="/"
           element={
@@ -25,10 +25,10 @@ function App() {
             </ProtectedRoute>
           }
         >
-          {/* Child routes inside Layout */}
           <Route index element={<Home />} />
-          <Route path="calorie-tracker" element={<CalorieTracker />} />
+          <Route path="calorie-tracker" element={<CalorieGuide />} />
           <Route path="nutrition-chart" element={<NutritionChart />} />
+          <Route path="insights" element={<Insights />} />
         </Route>
       </Routes>
     </BrowserRouter>
