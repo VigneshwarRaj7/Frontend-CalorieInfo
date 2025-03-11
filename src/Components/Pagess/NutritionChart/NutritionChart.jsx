@@ -12,23 +12,9 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const NutritionChart = () => {
-  const nutritionData = {
-    calories: 40,
-    carbs: 0.5,
-    fat: 2,
-    fiber: 0,
-    protein: 23,
-    vitamins: [
-      { name: "Vitamin A", value: 100 },
-      { name: "Vitamin B12", value: 0.5 },
-      { name: "Vitamin D", value: 20 },
-      { name: "Riboflavin", value: 0.2 },
-      { name: "Niacin", value: 1 },
-      { name: "Vitamin E", value: 0.5 },
-    ],
-  };
-
+const NutritionChart = (props) => {
+  const nutritionData = props.data
+  console.log(props)
   const { calories, protein, carbs, fat, fiber, vitamins } = nutritionData;
 
   // Convert vitamins list into label-value pairs

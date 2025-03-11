@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import axios from 'axios'  // Uncomment for real API calls
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
-import logo from '../../../assets/Logo2.svg';
+import logo from '../../../assets/konviLogo.png';
+import weighingLogo from '../../../assets/weighingLogo.png'
 
 function Login() {
   const [isLoginMode, setIsLoginMode] = useState(true)
@@ -29,26 +30,21 @@ function Login() {
 
     try {
       if (isLoginMode) {
-        // -----------------------
-        // Login Logic
-        // -----------------------
+        
         const response = await axios.post('http://127.0.0.1:5000/api/auth/login', { email, password })
         const { token } = response.data
         
         localStorage.setItem('token', token)
 
-        navigate('/') // go to protected home
+        navigate('/') 
       } else {
-        // -----------------------
-        // Registration Logic
-        // -----------------------
-        // 1) Validate password matches confirmPassword
+      
         if (password !== confirmPassword) {
           throw new Error('Passwords do not match')
         }
         const response = await axios.post('http://127.0.0.1:5000/api/auth/register', { email, password })
         if (response.data.success)
-           // Simulate success
+     
            {alert('Registered successfully!')
             setIsLoginMode(true)}
       }
@@ -72,73 +68,71 @@ function Login() {
 
   return (
     
-    <div className="relative min-h-screen bg-black">
-      {/* Background overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div className="relative min-h-screen bg-gray-800">
+     
+      <div className="absolute inset-0 bg-[#] bg-opacity-60"></div>
 
-      {/* Netflix-like Logo at the top */}
+     
       <div className="relative px-4 sm:px-8 py-6 flex items-center justify-between">
-        <img src={logo} className='w-16  md:w-28 '></img>
-        <h1 className="text-[#C0D26F] text-xl md:text-3xl font-semibold">CALORIE TRACKER</h1>
-
+        <img src={logo} className='m-4 w-40  md:w-56 md:mx-20 md:- '></img>
+        <img src={weighingLogo} className='w-16 mx-4 -mt-2  md:w-[100px] md:mx-20 md:mt-2'></img>
       </div>
 
-      {/* Centered form container */}
-      <div className="relative flex justify-center items-center px-4 py-8 sm:py-20">
-        <div className="max-w-md w-full bg-black bg-opacity-75 text-white p-8 sm:p-10 rounded">
+     
+     
+      <div className="relative flex justify-center  items-center px-4 py-8 sm:py-20">
+        <div className="max-w-md w-full bg-[#0A1B2A] bg-opacity-75 text-white p-8 sm:p-10 rounded-3xl">
           <h2 className="text-2xl sm:text-3xl font-bold mb-6">
             {isLoginMode ? 'Sign In' : 'Create Account'}
           </h2>
 
-          {/* Error Message */}
+         
           {error && (
             <div className="mb-4 p-2 text-red-500 bg-red-100 bg-opacity-10 rounded">
               {error}
             </div>
           )}
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email */}
+         
             <div>
-              <label htmlFor="email" className="block mb-1 text-gray-400 text-sm">
+              <label htmlFor="email" className="block mb-1 text-gray-400 text-sm font-bold">
                 Email
               </label>
               <input
                 type="email"
                 id="email"
-                className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+                className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-300"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
 
-            {/* Password */}
             <div>
-              <label htmlFor="password" className="block mb-1 text-gray-400 text-sm">
+              <label htmlFor="password" className="block mb-1 text-gray-400 text-sm font-bold">
                 Password
               </label>
               <input
                 type="password"
                 id="password"
-                className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+                className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-300"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
 
-            {/* Confirm Password if Registering */}
+      
             {!isLoginMode && (
               <div>
-                <label htmlFor="confirm-password" className="block mb-1 text-gray-400 text-sm">
+                <label htmlFor="confirm-password" className="block mb-1 text-gray-400 font-bold text-sm">
                   Confirm Password
                 </label>
                 <input
                   type="password"
                   id="confirm-password"
-                  className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+                  className="w-full px-4 py-2 rounded bg-gray-700 focus:outline-none focus:ring-2 focus:ring-red-300 "
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
@@ -146,10 +140,10 @@ function Login() {
               </div>
             )}
 
-            {/* Submit */}
+  
             <button
               type="submit"
-              className="w-full py-3 mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold rounded"
+              className="w-full py-3 mt-4 bg-[#da8888] text-sky-950 font-extrabold rounded"
               disabled={isLoading}
             >
               {isLoading
@@ -162,8 +156,8 @@ function Login() {
             </button>
           </form>
 
-          {/* Toggle between Login/Register */}
-          <div className="text-gray-400 text-sm mt-6">
+        
+          <div className="text-gray-400 font-bold hover:text-[#da8888] text-sm mt-6">
             {isLoginMode ? (
               <p>
                 New to Calorie Tracker?{' '}
