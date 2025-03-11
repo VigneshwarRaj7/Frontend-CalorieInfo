@@ -18,20 +18,21 @@ function CalorieTracker() {
     setError(null)
     // setNutritionData(null)
     setLoading(true)
-    
+    let token = localStorage.getItem("token")
+    console.log(token)
     try {
      
       const response = await axios.post('http://127.0.0.1:5000/get_nutrition', {
         food: foodInput,
         weight: parseInt(weight,10),
-      })
+      },{headers:{'Authorization':`Bearer ${token}`}})
       
      if(custom){
       const response2 = await axios.post('http://127.0.0.1:5000/get_custom', {
         food: foodInput,
         weight: parseInt(weight),
         custom: custom
-      })
+      },{headers:{'Authorization':`Bearer ${token}`}})
        
        setCustomData(response2.data)
      }else{
