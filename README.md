@@ -11,6 +11,7 @@ It provides:
 
 ## ** Features**
 **User Authentication** (Login/Protected Routes)  
+**Nutrition information based on food itema and grams**  
 **Calorie Requirement Calculator** (Based on weight & age)  
 **Nutrition Chart Visualization**  
 **Insights Page for Recommendations**  
@@ -22,8 +23,7 @@ It provides:
 - **Frontend:** ReactJS (SPA)
 - **Styling:** Tailwind CSS
 - **Routing:** React Router
-- **State Management:** React Hooks
-- **Backend Integration:** Fetch API (Flask)
+- **Backend Integration:** Axios API (Flask)
 
 ---
 
@@ -32,3 +32,5 @@ It provides:
 ```bash
 git clone https://github.com/your-username/calorie-tracker-frontend.git
 cd calorie-tracker-frontend
+npm install
+npm run dev
