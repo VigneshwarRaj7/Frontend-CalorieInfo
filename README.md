@@ -30,7 +30,7 @@ It provides:
 ## **Installation & Setup**
 ### **Clone the Repository**
 ```bash
-git clone https://github.com/your-username/calorie-tracker-frontend.git
+git clone https://github.com/VigneshwarRaj7/Frontend-CalorieInfo.git
 cd calorie-tracker-frontend
 npm install
 npm run dev
